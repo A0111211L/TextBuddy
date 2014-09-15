@@ -10,7 +10,11 @@ public class TextBuddy {
 
 	private static final String ERROR_FILE_NAME_NOT_SPECIFIED = "Error, file name not specified";
 	private static final String DELETE_ERROR = "Invalid delete command";
-
+	private static final String WELCOME_MESSAGE = "Welcome to TextBuddy. %s is ready for use";
+	private static final String ADD_MESSAGE = "added to %s: \"%s\"";
+	private static final String DELETE_MESSAGE = "deleted from %s: \"%s\"";
+	private static final String CLEAR_MESSAGE = "all content deleted from %s";
+	private static final String EMPTY_MESSAGE = "%s is empty";
 	private static Scanner sc = new Scanner(System.in);
 	private static String fileName;
 	private static ArrayList<String> storage = new ArrayList<String>();
@@ -26,7 +30,7 @@ public class TextBuddy {
 	}
 
 	private static void printWelcomeMessage() {
-		System.out.println("Welcome to TextBuddy. " + fileName + " is ready for use");
+		System.out.println(String.format(WELCOME_MESSAGE, fileName));
 	}
 
 	/*
@@ -81,19 +85,19 @@ public class TextBuddy {
 	private static void doAdd() {
 		String sentence = sc.nextLine();
 		sentence = sentence.trim();
-		System.out.println("added to " + fileName + ": \"" + sentence + "\"");
+		System.out.println(String.format(ADD_MESSAGE, fileName, sentence));
 		storage.add(sentence);
 	}
 
 	private static void doDelete(int num) {
 		String deleted = storage.get(num - 1);
 		storage.remove(num - 1);
-		System.out.println("deleted from " + fileName + ": \"" + deleted + "\"");
+		System.out.println(String.format(DELETE_MESSAGE, fileName, deleted));
 	}
 
 	private static void doDisplay() {
 		if (storage.size() == 0)
-			System.out.println(fileName + " is empty");
+			System.out.println(String.format(EMPTY_MESSAGE, fileName));
 
 		for (int i = 1; i < storage.size() + 1; i++) {
 			System.out.println(i + ". " + storage.get(i-1));
@@ -102,7 +106,7 @@ public class TextBuddy {
 
 	private static void doClear() {
 		storage.clear();	
-		System.out.println("all content deleted from " + fileName);
+		System.out.println(String.format(CLEAR_MESSAGE, fileName));
 	}
 
 	private static void doExit() throws IOException {
