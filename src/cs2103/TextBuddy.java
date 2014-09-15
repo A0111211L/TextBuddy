@@ -24,8 +24,9 @@ public class TextBuddy {
 		printWelcomeMessage();
 		while(true) {
 			System.out.print("command: ");
-			String userCommand = sc.next();
-			executeCommand(userCommand);
+			String userCommand = sc.nextLine();
+			String feedback = executeCommand(userCommand);
+			System.out.println(feedback);
 		}
 	}
 
@@ -48,65 +49,62 @@ public class TextBuddy {
 	/*
 	 * Method contains list of userCommands which user may input
 	 */
-	static void executeCommand(String userCommand) throws IOException {
-		switch(userCommand) {
+	static String executeCommand(String userCommand) throws IOException {
+		String command = getFirstWord(userCommand);
+		String remaining = removeFirstWord(userCommand);
+		switch(command) {
 		case "add" :
-			doAdd();
-			break;
+			return doAdd(remaining);
 
 		case "delete" :
 			try {
-				int num = Integer.parseInt(sc.nextLine().trim());
-				doDelete(num);
+				int num = Integer.parseInt(remaining.trim());
+				return doDelete(num);
 			}catch (Exception e) {
-				System.out.println(DELETE_ERROR);
+				return (DELETE_ERROR);
 			}
-			break;
 
 		case "display" :
 			doDisplay();
 			break;
 
 		case "clear" :
-			doClear();
-			break;
+			return doClear();
 
 		case "exit" :
 			doExit();
 			break;
 
 		default:
-			System.out.println("Invalid Command");
-			sc.nextLine();
-			break;
+			return("Invalid Command");
 		}
+		return "";
 	}
 
-	private static void doAdd() {
-		String sentence = sc.nextLine();
-		sentence = sentence.trim();
-		System.out.println(String.format(ADD_MESSAGE, fileName, sentence));
-		storage.add(sentence);
+	private static String doAdd(String input) {
+		input = input.trim();
+		storage.add(input);
+		return (String.format(ADD_MESSAGE, fileName, input));
 	}
 
-	private static void doDelete(int num) {
+	private static String doDelete(int num) {
 		String deleted = storage.get(num - 1);
 		storage.remove(num - 1);
-		System.out.println(String.format(DELETE_MESSAGE, fileName, deleted));
+		return (String.format(DELETE_MESSAGE, fileName, deleted));
 	}
 
 	private static void doDisplay() {
 		if (storage.size() == 0)
-			System.out.println(String.format(EMPTY_MESSAGE, fileName));
+			System.out.print(String.format(EMPTY_MESSAGE, fileName));
 
 		for (int i = 1; i < storage.size() + 1; i++) {
 			System.out.println(i + ". " + storage.get(i-1));
 		}
 	}
 
-	private static void doClear() {
+	private static String doClear() {
 		storage.clear();	
-		System.out.println(String.format(CLEAR_MESSAGE, fileName));
+		return (String.format(CLEAR_MESSAGE, fileName));
 	}
 
 	private static void doExit() throws IOException {
@@ -119,6 +117,15 @@ public class TextBuddy {
 		}
 		bw.close();
 		System.exit(0);
+	}
+
+	private static String removeFirstWord(String userCommand) {
+		return userCommand.replaceFirst(getFirstWord(userCommand), "").trim();
+	}
+
+	private static String getFirstWord(String userCommand) {
+		String userWords = userCommand.trim().split("\\s+")[0];
+		return userWords;
 	}
 
 	static boolean isAdded(String text) {
