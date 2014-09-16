@@ -21,7 +21,8 @@ public class TextBuddy {
 	private static Scanner sc = new Scanner(System.in);
 	private static String fileName;
 	private static ArrayList<String> storage = new ArrayList<String>();
-
+	private static ArrayList<String> containWord = new ArrayList<String>();
+	
 	public static void main(String[] args) throws IOException {
 		doInitialize(args);
 		printWelcomeMessage();
@@ -81,6 +82,11 @@ public class TextBuddy {
 		case "sort" :
 			return doSort();
 
+		case "search" :
+			containWord = doSearch(remaining.trim());
+			printContent(containWord);
+			break;
+			
 		default:
 			return("Invalid Command");
 		}
@@ -136,7 +142,44 @@ public class TextBuddy {
 		return SORT_MESSAGE;
 	}
 
-
+	// method searches through storage ArrayList for strings containing given word
+	private static ArrayList<String> doSearch(String word) {
+		boolean found = false;
+		for (int i = 0; i < storage.size(); i++) {
+			String[] splitText = storage.get(i).split(" ");
+			for (int j = 0; j < splitText.length; j++) {
+				if (splitText[j].equalsIgnoreCase(word)) {
+					found = true;
+					break;
+				}
+				else {
+					found = false;
+				}
+				if (found){
+					break;
+				}
+			}
+			if (found) {
+				containWord.add(storage.get(i));
+			}
+			found = false;
+		}
+		return containWord;
+	}
+	
+	// method prints out strings containing given word after search is completed
+	private static void printContent(ArrayList<String> containWord) {
+		if (containWord.size() == 0) {
+			System.out.println(NO_RESULT_MESSAGE);
+		}
+		else {
+			for (int i = 0; i < containWord.size(); i++) {
+				System.out.println(containWord.get(i));
+			}
+			containWord.clear();
+		}
+	}
+	
 	private static String removeFirstWord(String userCommand) {
 		return userCommand.replaceFirst(getFirstWord(userCommand), "").trim();
 	}
