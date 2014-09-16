@@ -80,19 +80,22 @@ public class TextBuddy {
 		}
 		return "";
 	}
-
+	
+	// add input to Arraylist
 	private static String doAdd(String input) {
 		input = input.trim();
 		storage.add(input);
 		return (String.format(ADD_MESSAGE, fileName, input));
 	}
-
+	
+	// deleted selected string from Arraylist
 	private static String doDelete(int num) {
 		String deleted = storage.get(num - 1);
 		storage.remove(num - 1);
 		return (String.format(DELETE_MESSAGE, fileName, deleted));
 	}
-
+	
+	// print out all entries contained in Arraylist
 	private static void doDisplay() {
 		if (storage.size() == 0)
 			System.out.print(String.format(EMPTY_MESSAGE, fileName));
@@ -101,12 +104,14 @@ public class TextBuddy {
 			System.out.println(i + ". " + storage.get(i-1));
 		}
 	}
-
+	
+	// clear Arraylist of all entries
 	private static String doClear() {
 		storage.clear();	
 		return (String.format(CLEAR_MESSAGE, fileName));
 	}
-
+	
+	// method copies strings stored in Arraylist into file and exits
 	private static void doExit() throws IOException {
 		File f = new File(fileName);
 		FileWriter fw = new FileWriter(f);
@@ -127,11 +132,12 @@ public class TextBuddy {
 		String userWords = userCommand.trim().split("\\s+")[0];
 		return userWords;
 	}
-	
+
 	static int getLineCount() {
 		return storage.size();
 	}
 
+	// checks if last line added to Arraylist is indeed the latest string
 	static boolean isAdded(String text) {
 		if (storage.get(storage.size() - 1).equals(text)) {
 			return true;
