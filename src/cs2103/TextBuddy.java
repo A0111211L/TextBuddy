@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class TextBuddy { 
@@ -15,6 +16,7 @@ public class TextBuddy {
 	private static final String DELETE_MESSAGE = "deleted from %s: \"%s\"";
 	private static final String CLEAR_MESSAGE = "all content deleted from %s";
 	private static final String EMPTY_MESSAGE = "%s is empty";
+	private static final String SORT_MESSAGE = "content sorted";
 	private static Scanner sc = new Scanner(System.in);
 	private static String fileName;
 	private static ArrayList<String> storage = new ArrayList<String>();
@@ -74,6 +76,9 @@ public class TextBuddy {
 		case "exit" :
 			doExit();
 			break;
+			
+		case "sort" :
+			return doSort();
 
 		default:
 			return("Invalid Command");
@@ -123,7 +128,14 @@ public class TextBuddy {
 		bw.close();
 		System.exit(0);
 	}
-
+	
+	// method sorts content stored in Arraylist
+	private static String doSort() {
+		Collections.sort(storage);
+		return SORT_MESSAGE;
+	}
+	
+	
 	private static String removeFirstWord(String userCommand) {
 		return userCommand.replaceFirst(getFirstWord(userCommand), "").trim();
 	}
