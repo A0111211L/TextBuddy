@@ -55,5 +55,25 @@ public class TextBuddyTest {
 		assertEquals(check, TextBuddy.isSorted());
 		
 	}
+	
+	@Test
+	public void testdoSearch() throws IOException {
+		ArrayList<String> testSearch = new ArrayList<String>();
+		testSearch.add("YO");
+		testSearch.add("Hey yo yo");
+		testSearch.add("yo this is me");
+		// add content into arraylist
+		TextBuddy.executeCommand("add yooooooooooooooo");
+		TextBuddy.executeCommand("add mayo");
+		TextBuddy.executeCommand("add yyoo and hey");
+		TextBuddy.executeCommand("add y.o");
+		TextBuddy.executeCommand("add YO");
+		TextBuddy.executeCommand("add Hey yo yo");
+		TextBuddy.executeCommand("add oy oy oy");
+		TextBuddy.executeCommand("add yo this is me");
+		// check if the word searched is found in the strings stored in containWord arraylist
+		assertEquals(testSearch, TextBuddy.doSearch("yo"));
+	
+	}
 
 }

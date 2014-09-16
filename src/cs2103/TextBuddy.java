@@ -143,7 +143,7 @@ public class TextBuddy {
 	}
 
 	// method searches through storage ArrayList for strings containing given word
-	private static ArrayList<String> doSearch(String word) {
+	static ArrayList<String> doSearch(String word) {
 		boolean found = false;
 		for (int i = 0; i < storage.size(); i++) {
 			String[] splitText = storage.get(i).split(" ");
