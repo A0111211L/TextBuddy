@@ -26,5 +26,16 @@ public class TextBuddyTest {
 		assertTrue(TextBuddy.isAdded("ADDadd add me"));
 		
 	}
+	
+	@Test
+	public void testdoClear() throws IOException {
+		// check if the “clear” command returns the right status message
+		assertEquals("all content deleted from null", TextBuddy.executeCommand("clear"));
+		//check if the file was actually cleared
+		assertEquals(0, TextBuddy.getLineCount());
+	
+	}
+	
+	
 
 }

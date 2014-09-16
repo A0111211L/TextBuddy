@@ -127,6 +127,10 @@ public class TextBuddy {
 		String userWords = userCommand.trim().split("\\s+")[0];
 		return userWords;
 	}
+	
+	static int getLineCount() {
+		return storage.size();
+	}
 
 	static boolean isAdded(String text) {
 		if (storage.get(storage.size() - 1).equals(text)) {
