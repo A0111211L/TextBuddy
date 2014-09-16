@@ -2,6 +2,7 @@ package cs2103;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -36,6 +37,23 @@ public class TextBuddyTest {
 	
 	}
 	
-	
+	@Test
+	public void testdoSort() throws IOException {
+		ArrayList<String> check = new ArrayList<String>();
+		check.add("1234");
+		check.add("aaaaa");
+		check.add("helloworld");
+		check.add("meow");
+		// add content into arraylist
+		TextBuddy.executeCommand("add helloworld");
+		TextBuddy.executeCommand("add aaaaa");
+		TextBuddy.executeCommand("add 1234");
+		TextBuddy.executeCommand("add    meow");
+		// check if the "sort" command returns the right status message
+		assertEquals("content sorted", TextBuddy.executeCommand("sort"));
+		// check if the content is sorted accordingly
+		assertEquals(check, TextBuddy.isSorted());
+		
+	}
 
 }

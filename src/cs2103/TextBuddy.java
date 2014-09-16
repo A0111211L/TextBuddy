@@ -17,6 +17,7 @@ public class TextBuddy {
 	private static final String CLEAR_MESSAGE = "all content deleted from %s";
 	private static final String EMPTY_MESSAGE = "%s is empty";
 	private static final String SORT_MESSAGE = "content sorted";
+	private static final String NO_RESULT_MESSAGE = "no result found";
 	private static Scanner sc = new Scanner(System.in);
 	private static String fileName;
 	private static ArrayList<String> storage = new ArrayList<String>();
@@ -76,7 +77,7 @@ public class TextBuddy {
 		case "exit" :
 			doExit();
 			break;
-			
+
 		case "sort" :
 			return doSort();
 
@@ -85,21 +86,21 @@ public class TextBuddy {
 		}
 		return "";
 	}
-	
+
 	// add input to Arraylist
 	private static String doAdd(String input) {
 		input = input.trim();
 		storage.add(input);
 		return (String.format(ADD_MESSAGE, fileName, input));
 	}
-	
+
 	// deleted selected string from Arraylist
 	private static String doDelete(int num) {
 		String deleted = storage.get(num - 1);
 		storage.remove(num - 1);
 		return (String.format(DELETE_MESSAGE, fileName, deleted));
 	}
-	
+
 	// print out all entries contained in Arraylist
 	private static void doDisplay() {
 		if (storage.size() == 0)
@@ -109,13 +110,13 @@ public class TextBuddy {
 			System.out.println(i + ". " + storage.get(i-1));
 		}
 	}
-	
+
 	// clear Arraylist of all entries
 	private static String doClear() {
 		storage.clear();	
 		return (String.format(CLEAR_MESSAGE, fileName));
 	}
-	
+
 	// method copies strings stored in Arraylist into file and exits
 	private static void doExit() throws IOException {
 		File f = new File(fileName);
@@ -128,14 +129,14 @@ public class TextBuddy {
 		bw.close();
 		System.exit(0);
 	}
-	
+
 	// method sorts content stored in Arraylist
 	private static String doSort() {
 		Collections.sort(storage);
 		return SORT_MESSAGE;
 	}
-	
-	
+
+
 	private static String removeFirstWord(String userCommand) {
 		return userCommand.replaceFirst(getFirstWord(userCommand), "").trim();
 	}
@@ -156,5 +157,9 @@ public class TextBuddy {
 		}
 		else
 			return false;		
+	}
+
+	static ArrayList<String> isSorted() {
+		return storage;
 	}
 }
