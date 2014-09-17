@@ -18,6 +18,7 @@ public class TextBuddy {
 	private static final String EMPTY_MESSAGE = "%s is empty";
 	private static final String SORT_MESSAGE = "content sorted";
 	private static final String NO_RESULT_MESSAGE = "no result found";
+	private static final String INVALID_SEARCH_MESSAGE = "Invalid search command";
 	private static Scanner sc = new Scanner(System.in);
 	private static String fileName;
 	private static ArrayList<String> storage = new ArrayList<String>();
@@ -143,11 +144,15 @@ public class TextBuddy {
 	}
 
 	// method searches through storage ArrayList for strings containing given word
-	static ArrayList<String> doSearch(String word) {
-		String findWord = word.replaceAll("[\\W]", "");
+	static ArrayList<String> doSearch(String searchKey) {
+		String findWord = searchKey.replaceAll("[\\W]", " ");
+		String[] splitKey = findWord.split(" ");
+		if (splitKey.length > 1) {
+			System.out.println(INVALID_SEARCH_MESSAGE);
+		}
 		boolean found = false;
 		for (int i = 0; i < storage.size(); i++) {
-			String toCheck = storage.get(i).replaceAll("[\\W]", "");
+			String toCheck = storage.get(i).replaceAll("[\\W]", " ");
 			String[] splitText = toCheck.split(" ");
 			for (int j = 0; j < splitText.length; j++) {
 				if (splitText[j].equalsIgnoreCase(findWord)) {

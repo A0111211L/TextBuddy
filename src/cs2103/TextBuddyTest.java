@@ -74,6 +74,6 @@ public class TextBuddyTest {
 		// check if the word searched is found in the strings stored in containWord arraylist
 		assertEquals(testSearch, TextBuddy.doSearch("yo"));
 	
-	}
+	} 
 
 }
