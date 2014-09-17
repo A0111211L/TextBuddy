@@ -144,11 +144,13 @@ public class TextBuddy {
 
 	// method searches through storage ArrayList for strings containing given word
 	static ArrayList<String> doSearch(String word) {
+		String findWord = word.replaceAll("[\\W]", "");
 		boolean found = false;
 		for (int i = 0; i < storage.size(); i++) {
-			String[] splitText = storage.get(i).split(" ");
+			String toCheck = storage.get(i).replaceAll("[\\W]", "");
+			String[] splitText = toCheck.split(" ");
 			for (int j = 0; j < splitText.length; j++) {
-				if (splitText[j].equalsIgnoreCase(word)) {
+				if (splitText[j].equalsIgnoreCase(findWord)) {
 					found = true;
 					break;
 				}
